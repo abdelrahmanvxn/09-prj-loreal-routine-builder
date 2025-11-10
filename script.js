@@ -1,3 +1,7 @@
+// Detect Arabic text for RTL support
+function isArabic(text) {
+  return /[\u0600-\u06FF]/.test(text);
+}
 // ======= POPULATE CATEGORY DROPDOWN =======
 async function populateCategoryDropdown() {
   const products = await loadProducts();
@@ -116,22 +120,22 @@ let chatHistory = [];
 function renderChatHistory() {
   chatWindow.innerHTML = chatHistory
     .map((msg) => {
+      const rtl = isArabic(msg.content) ? "rtl-text" : "";
       if (msg.role === "user") {
-        return `<div class="chat-bubble user-bubble">${renderMarkdown(
+        return `<div class="chat-bubble user-bubble ${rtl}">${renderMarkdown(
           msg.content
         )}</div>`;
       } else if (msg.role === "assistant") {
-        return `<div class="chat-bubble ai-bubble">${renderMarkdown(
+        return `<div class="chat-bubble ai-bubble ${rtl}">${renderMarkdown(
           msg.content
         )}</div>`;
       } else {
-        return `<div class="chat-bubble system-bubble">${renderMarkdown(
+        return `<div class="chat-bubble system-bubble ${rtl}">${renderMarkdown(
           msg.content
         )}</div>`;
       }
     })
     .join("");
-  // Scroll to bottom
   chatWindow.scrollTop = chatWindow.scrollHeight;
 }
 // ======= LOAD PRODUCTS =======

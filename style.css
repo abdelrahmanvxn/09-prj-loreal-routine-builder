@@ -1,3 +1,15 @@
+/* Detect and fix right-to-left languages in chat bubbles */
+.chat-bubble {
+  direction: auto;
+  unicode-bidi: plaintext;
+  text-align: start;
+}
+/* Explicit RTL support for Arabic or mixed text */
+.rtl-text {
+  direction: rtl;
+  unicode-bidi: isolate;
+  text-align: right;
+}
 /* === Product Modal on Hover === */
 .product-modal {
   position: absolute;
