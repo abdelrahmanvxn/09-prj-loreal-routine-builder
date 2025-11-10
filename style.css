@@ -1,3 +1,50 @@
+/* === Product Modal on Hover === */
+.product-modal {
+  position: absolute;
+  z-index: 100;
+  left: 50%;
+  top: 100%;
+  transform: translate(-50%, 16px);
+  min-width: 220px;
+  max-width: 320px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18), 0 1.5px 8px #e3a53544;
+  padding: 20px 18px 18px 18px;
+  font-size: 1em;
+  color: #222;
+  border: 2px solid var(--loreal-gold);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.18s, transform 0.18s;
+  box-sizing: border-box;
+  text-align: left;
+  line-height: 1.5;
+}
+.product-card:hover .product-modal,
+.product-card:focus-within .product-modal {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 8px) scale(1.03);
+}
+.product-modal-title {
+  font-weight: 700;
+  font-size: 1.08em;
+  margin-bottom: 8px;
+  color: var(--loreal-red);
+}
+.product-modal-desc {
+  font-size: 0.98em;
+  color: #333;
+}
+@media (max-width: 600px) {
+  .product-modal {
+    min-width: 160px;
+    max-width: 90vw;
+    font-size: 0.97em;
+    padding: 14px 10px 12px 10px;
+  }
+}
 /* === L'Oréal Brand Colors === */
 :root {
   --loreal-red: #ff003b;
@@ -30,7 +77,7 @@ h1,
 h2,
 h3,
 .chatbox h2 {
-  color: var(--loreal-red);
+  color: #222;
 }
 
 /* Brand color for product cards on hover/focus */

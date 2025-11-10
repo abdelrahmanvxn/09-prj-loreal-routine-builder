@@ -150,26 +150,44 @@ function displayProducts(products) {
           const isSelected = selectedProducts.some(
             (p) => p.name === product.name
           );
+          // Modal markup for description
+          const modal = `
+            <div class="product-modal" tabindex="-1">
+              <div class="product-modal-title">${product.name}</div>
+              <div class="product-modal-desc">${product.description}</div>
+            </div>
+          `;
           return `
             <div class="product-card${
               isSelected ? " selected" : ""
-            }" data-product-index="${idx}">
+            }" data-product-index="${idx}" tabindex="0" style="position:relative;">
               <img src="${product.image}" alt="${product.name}">
               <div class="product-info">
                 <h3>${product.name}</h3>
                 <p>${product.brand}</p>
               </div>
+              ${modal}
             </div>
           `;
         })
         .join("")
     : `<div class="placeholder-message">No products found.</div>`;
 
+  // Add click handler for selection
   const productCards = document.querySelectorAll(".product-card");
   productCards.forEach((card, idx) => {
     card.addEventListener("click", () => {
       handleProductSelect(products[idx]);
       card.classList.toggle("selected");
+    });
+    // Accessibility: show modal on focus, hide on blur
+    card.addEventListener("focus", () => {
+      const modal = card.querySelector(".product-modal");
+      if (modal) modal.style.opacity = "1";
+    });
+    card.addEventListener("blur", () => {
+      const modal = card.querySelector(".product-modal");
+      if (modal) modal.style.opacity = "";
     });
   });
 }
